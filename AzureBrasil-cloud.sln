@@ -1,0 +1,82 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0 - Presentation", "0 - Presentation", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F403726B-F9DE-4575-B5B8-74E9AC1F97A5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Application", "1 - Application", "{6A91AC80-4B00-4FEC-99A1-BDF814765F7D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Domain", "2 - Domain", "{6A1B9EB3-E2E1-48B8-81FB-825E7BC2528B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Infra", "3 - Infra", "{132A190F-6913-496E-9656-3468FF61C5AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureBrasil-cloud.Presentation", "src\AzureBrasil-cloud.Presentation\AzureBrasil-cloud.Presentation.csproj", "{B6C2698D-E3C5-4DC7-8940-19AE87B4730A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureBrasil-cloud.Domain", "src\AzureBrasil-cloud.Domain\AzureBrasil-cloud.Domain.csproj", "{E5CE76C4-C80C-44E7-92BB-E78F16ECB435}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureBrasil-cloud.Application", "src\AzureBrasil-cloud.Application\AzureBrasil-cloud.Application.csproj", "{546571D4-CEB5-40D2-9D7B-AACD4B3C75EB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.1 - ExternalServices", "3.1 - ExternalServices", "{F54E6444-3685-4239-BB69-0CC4A5B5FFAE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureBrasil-cloud.Infra.ExternalServices.AzureGraphService", "src\AzureBrasil-cloud.Infra.ExternalServices.AzureGraphService\AzureBrasil-cloud.Infra.ExternalServices.AzureGraphService.csproj", "{9BE40C04-6BFB-496D-94E3-8DD59DF65BCD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{663A5128-FAFC-40FD-BA1F-1EC65DC9ECE5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureBrasil-cloud.Tests", "tests\AzureBrasil-cloud.Tests\AzureBrasil-cloud.Tests.csproj", "{655B1559-AC7E-493F-A22C-FF5D8A6FF380}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		.github\workflows\cd.yml = .github\workflows\cd.yml
+		.github\workflows\ci.yml = .github\workflows\ci.yml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B6C2698D-E3C5-4DC7-8940-19AE87B4730A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6C2698D-E3C5-4DC7-8940-19AE87B4730A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6C2698D-E3C5-4DC7-8940-19AE87B4730A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6C2698D-E3C5-4DC7-8940-19AE87B4730A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5CE76C4-C80C-44E7-92BB-E78F16ECB435}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5CE76C4-C80C-44E7-92BB-E78F16ECB435}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5CE76C4-C80C-44E7-92BB-E78F16ECB435}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5CE76C4-C80C-44E7-92BB-E78F16ECB435}.Release|Any CPU.Build.0 = Release|Any CPU
+		{546571D4-CEB5-40D2-9D7B-AACD4B3C75EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{546571D4-CEB5-40D2-9D7B-AACD4B3C75EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{546571D4-CEB5-40D2-9D7B-AACD4B3C75EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{546571D4-CEB5-40D2-9D7B-AACD4B3C75EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BE40C04-6BFB-496D-94E3-8DD59DF65BCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BE40C04-6BFB-496D-94E3-8DD59DF65BCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BE40C04-6BFB-496D-94E3-8DD59DF65BCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BE40C04-6BFB-496D-94E3-8DD59DF65BCD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{655B1559-AC7E-493F-A22C-FF5D8A6FF380}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{655B1559-AC7E-493F-A22C-FF5D8A6FF380}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{655B1559-AC7E-493F-A22C-FF5D8A6FF380}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{655B1559-AC7E-493F-A22C-FF5D8A6FF380}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{02EA681E-C7D8-13C7-8484-4AC65E1B71E8} = {F403726B-F9DE-4575-B5B8-74E9AC1F97A5}
+		{6A91AC80-4B00-4FEC-99A1-BDF814765F7D} = {F403726B-F9DE-4575-B5B8-74E9AC1F97A5}
+		{6A1B9EB3-E2E1-48B8-81FB-825E7BC2528B} = {F403726B-F9DE-4575-B5B8-74E9AC1F97A5}
+		{132A190F-6913-496E-9656-3468FF61C5AE} = {F403726B-F9DE-4575-B5B8-74E9AC1F97A5}
+		{B6C2698D-E3C5-4DC7-8940-19AE87B4730A} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{E5CE76C4-C80C-44E7-92BB-E78F16ECB435} = {6A1B9EB3-E2E1-48B8-81FB-825E7BC2528B}
+		{546571D4-CEB5-40D2-9D7B-AACD4B3C75EB} = {6A91AC80-4B00-4FEC-99A1-BDF814765F7D}
+		{F54E6444-3685-4239-BB69-0CC4A5B5FFAE} = {132A190F-6913-496E-9656-3468FF61C5AE}
+		{9BE40C04-6BFB-496D-94E3-8DD59DF65BCD} = {F54E6444-3685-4239-BB69-0CC4A5B5FFAE}
+		{655B1559-AC7E-493F-A22C-FF5D8A6FF380} = {663A5128-FAFC-40FD-BA1F-1EC65DC9ECE5}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E24B11E9-9EA1-4A58-A79F-4618CF32E263}
+	EndGlobalSection
+EndGlobal

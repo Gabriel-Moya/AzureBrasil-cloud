@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>AzureBrasil_cloud.Presentation</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Graph" Version="5.80.0" />
+    <PackageReference Include="Microsoft.Identity.Web" Version="3.9.3" />
+    <PackageReference Include="Microsoft.Identity.Web.MicrosoftGraph" Version="3.9.3" />
+    <PackageReference Include="Microsoft.Identity.Web.UI" Version="3.9.3" />
+    <PackageReference Include="MudBlazor" Version="7.16.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AzureBrasil-cloud.Application\AzureBrasil-cloud.Application.csproj" />
+    <ProjectReference Include="..\AzureBrasil-cloud.Infra.ExternalServices.AzureGraphService\AzureBrasil-cloud.Infra.ExternalServices.AzureGraphService.csproj" />
+  </ItemGroup>
+
+</Project>

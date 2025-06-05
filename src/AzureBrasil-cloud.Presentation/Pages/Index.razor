@@ -1,0 +1,240 @@
+﻿@page "/"
+
+@attribute [Authorize]
+
+@using AzureBrasil_cloud.Application.Interfaces
+@using AzureBrasil_cloud.Application.Services
+@using AzureBrasil_cloud.Domain.Entities
+@using Microsoft.Identity.Web
+
+@inject Microsoft.Identity.Web.ITokenAcquisition TokenAcquisition
+@inject UserService UserService
+@inject TenantService TenantService
+@inject GroupService GroupService
+@inject LoginAttemptService LoginAttemptService
+@inject IAzureGraphService AzureGraphService
+@inject NavigationManager NavigationManager
+
+<PageTitle>Dashboard</PageTitle>
+
+<MudPaper Class="p-4 mb-4">
+    <MudGrid>
+        <MudItem xs="12" md="8">
+            <MudText Typo="Typo.h4" Class="font-weight-bold">AzureBrasil - Entra ID Dashboard</MudText>
+            <MudText Typo="Typo.subtitle1">Visão geral do tenant</MudText>
+        </MudItem>
+        <MudItem xs="12" md="4" Class="d-flex justify-end align-center text-end">
+            @if (CurrentUser != null)
+            {
+                <div>
+                    <MudText Typo="Typo.subtitle2">@CurrentUser.DisplayName</MudText>
+                    <MudText Typo="Typo.caption" Class="text-secondary">@CurrentUser.Email</MudText>
+                </div>
+            }
+        </MudItem>
+    </MudGrid>
+</MudPaper>
+
+<MudGrid Class="mb-4">
+    <MudItem xs="6">
+        <MudCard>
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                        <MudText Typo="Typo.h6">Total de Usuários</MudText>
+                        <MudIconButton Icon="@Icons.Material.Outlined.PersonOutline" Color="Color.Default" Edge="Edge.End" />
+                    </div>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudCardContent>
+                <MudText Typo="Typo.h5">
+                    <MudText Typo="Typo.h5">@Users?.Count()</MudText>
+                </MudText>
+            </MudCardContent>
+        </MudCard>
+    </MudItem>
+    <MudItem xs="6">
+        <MudCard>
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                        <MudText Typo="Typo.h6">Total de Grupos</MudText>
+                        <MudIconButton Icon="@Icons.Material.Outlined.Groups" Color="Color.Default" Edge="Edge.End" />
+                    </div>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudCardContent>
+                <MudText Typo="Typo.h5">
+                    <MudText Typo="Typo.h5">@Groups?.Count()</MudText>
+                </MudText>
+            </MudCardContent>
+        </MudCard>
+    </MudItem>
+</MudGrid>
+
+<MudGrid>
+    <MudItem xs="12">
+        <MudTabs Centered="true" Color="Color.Primary" Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
+            <MudTabPanel Text="Grupos">
+                @if (Groups == null)
+                {
+                    <MudProgressCircular Indeterminate="true" Color="Color.Primary" Size="Size.Large" />
+                }
+                else
+                {
+                    <MudGrid>
+                        <MudItem xs="12">
+                            <MudTable Items="@Groups"
+                                      FixedHeader="true"
+                                      FixedFooter="true"
+                                      Striped="true">
+
+                                <HeaderContent>
+                                    <MudTh>Grupo</MudTh>
+                                    <MudTh>Descrição</MudTh>
+                                    <MudTh>Id</MudTh>
+                                </HeaderContent>
+
+                                <RowTemplate>
+                                    <MudTd DataLabel="Name">@context.DisplayName</MudTd>
+                                    <MudTd DataLabel="Description">@context.Description</MudTd>
+                                    <MudTd DataLabel="Email">@context.Id</MudTd>
+                                </RowTemplate>
+
+                            </MudTable>
+                        </MudItem>
+                    </MudGrid>
+                }
+            </MudTabPanel>
+            <MudTabPanel Text="Usuários">
+                @if (Users == null)
+                {
+                    <MudProgressCircular Indeterminate="true" Color="Color.Primary" Size="Size.Large" />
+                }
+                else
+                {
+                    <MudGrid>
+                        <MudItem xs="12">
+                            <MudTable Items="@Users"
+                                        FixedHeader="true"
+                                        FixedFooter="true"
+                                        Striped="true">
+
+                                <HeaderContent>
+                                    <MudTh>Nome</MudTh>
+                                    <MudTh>Email</MudTh>
+                                </HeaderContent>
+
+                                <RowTemplate>
+                                    <MudTd DataLabel="Name">@context.DisplayName</MudTd>
+                                    <MudTd DataLabel="Email">@context.Email</MudTd>
+                                </RowTemplate>
+
+                            </MudTable>
+                        </MudItem>
+                    </MudGrid>
+                }
+            </MudTabPanel>
+            <MudTabPanel Text="Tentativas de Login">
+                <MudPaper>
+                    @if (LoginAttempts.Count == 0 && IsLoadingAttempts)
+                    {
+                        <MudProgressCircular Indeterminate="true" Color="Color.Primary" />
+                    }
+                    else if (LoginAttempts.Count == 0)
+                    {
+                        <MudText>Nenhuma tentativa de login encontrada.</MudText>
+                    }
+                    else
+                    {
+                        <MudTable Items="LoginAttempts" Dense="true" Hover="true" Elevation="0">
+                            <HeaderContent>
+                                <MudTh>Usuário</MudTh>
+                                <MudTh>Email</MudTh>
+                                <MudTh>IP</MudTh>
+                                <MudTh>SO</MudTh>
+                                <MudTh>Cidade</MudTh>
+                                <MudTh>Data</MudTh>
+                            </HeaderContent>
+                            <RowTemplate>
+                                <MudTd>@context.DisplayName</MudTd>
+                                <MudTd>@context.UserPrincipalName</MudTd>
+                                <MudTd>@context.IpAddress</MudTd>
+                                <MudTd>@context.OperationalSystem</MudTd>
+                                <MudTd>@context.City</MudTd>
+                                <MudTd>@context.Timestamp.ToLocalTime()</MudTd>
+                            </RowTemplate>
+                        </MudTable>
+
+                        <div class="d-flex justify-center mt-4">
+                            @if (HasMoreData)
+                            {
+                                <MudButton Class="mb-4" OnClick="@LoadMoreLoginAttempts" Disabled="@IsLoadingAttempts" Variant="Variant.Filled" Color="Color.Primary">
+                                    @(IsLoadingAttempts ? "Carregando..." : "Carregar mais")
+                                </MudButton>
+                            }
+                            else
+                            {
+                                <MudText Typo="Typo.caption" Class="mt-2">Todas as tentativas carregadas.</MudText>
+                            }
+                        </div>
+                    }
+                </MudPaper>
+            </MudTabPanel>
+        </MudTabs>
+    </MudItem>
+</MudGrid>
+
+@code {
+    private string[] scopes = new[] { "User.Read", "Directory.Read.All", "AuditLog.Read.All", "Group.Read.All" };
+    private string AccessToken;
+    private User CurrentUser;
+    private IEnumerable<User> Users;
+    private Tenant Tenant;
+    private IEnumerable<Group> Groups;
+    private List<LoginAttempt> LoginAttempts = new();
+    private bool IsLoadingAttempts = false;
+    private int PageSize = 5;
+    private int Skip = 0;
+    private bool HasMoreData = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        AccessToken = await TokenAcquisition.GetAccessTokenForUserAsync(scopes);
+        
+        var _ = LoadMoreLoginAttempts();
+
+        var currentUserTask = UserService.GetCurrentUserAsync(AccessToken);
+        var usersTask = UserService.GetUsersAsync(AccessToken);
+        var tenantTask = TenantService.GetTenantAsync(AccessToken);
+        var groupsTask = GroupService.GetGroupsAsync(AccessToken);
+
+        await Task.WhenAll(currentUserTask, usersTask, tenantTask, groupsTask);
+
+        CurrentUser = await currentUserTask;
+        Users = await usersTask;
+        Tenant = await tenantTask;
+        Groups = await groupsTask;
+        Console.WriteLine(Tenant.Id, Tenant.DisplayName);
+    }
+
+    private async Task LoadMoreLoginAttempts()
+    {
+        if (IsLoadingAttempts || !HasMoreData)
+            return;
+
+        IsLoadingAttempts = true;
+
+        var newAttempts = (await LoginAttemptService.GetLoginAttemptsAsync(AccessToken, Skip, PageSize)).ToList();
+
+        if (newAttempts.Count < PageSize)
+        {
+            HasMoreData = false;
+        }
+
+        LoginAttempts.AddRange(newAttempts);
+        Skip += PageSize;
+
+        IsLoadingAttempts = false;
+    }
+}
